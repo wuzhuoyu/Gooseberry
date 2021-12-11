@@ -1,3 +1,12 @@
+
+//ksp
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -7,4 +16,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Gooseberry"
-include ':app'
+include (":app")
+include (":hybrid")
+include (":processor")
+include (":annotation")
