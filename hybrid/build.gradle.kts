@@ -1,6 +1,19 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    `maven-publish`
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.WuZhuoYu"
+            artifactId = "library"
+            version = "0.0.1"
+
+         //   from(components["java"])
+        }
+    }
 }
 
 android {
