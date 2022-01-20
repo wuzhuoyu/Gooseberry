@@ -77,9 +77,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
-    //腾讯x5引擎lib
-    api(files("libs\\tbs_sdk_thirdapp_v4.3.0.185_44085_sharewithdownloadwithfile_withoutGame_obfs_20210809_201442.jar"))
-
     //moshi
     implementation("com.google.code.gson:gson:2.8.6")
 

@@ -4,11 +4,11 @@ import android.content.Context
 import com.jeremyliao.liveeventbus.BuildConfig
 import com.yuuoffice.hybrid.component.api.HybridWebViewApi
 import com.yuuoffice.hybrid.component.bridge.Bridge
+import com.yuuoffice.hybrid.component.webview.base_webview.BaseWebView
 import com.yuuoffice.hybrid.component.webview.hybrid_webview.builder.HybridWebViewBuilder
 import com.yuuoffice.hybrid.component.webview.hybrid_webview.client.HybridWebChromeClient
 import com.yuuoffice.hybrid.component.webview.hybrid_webview.client.HybridWebViewClient
 import com.yuuoffice.hybrid.component.webview.hybrid_webview.listener.HybridListener
-import com.yuuoffice.hybrid.component.webview.x5_webview.X5WebView
 
 
 /**
@@ -18,7 +18,7 @@ import com.yuuoffice.hybrid.component.webview.x5_webview.X5WebView
  * @Date: 2021/8/12 15:59
  */
 
-class HybridWebView(private val builder: HybridWebViewBuilder) : X5WebView(builder.context), HybridWebViewApi {
+class HybridWebView(private val builder: HybridWebViewBuilder) : BaseWebView(builder.context), HybridWebViewApi {
 
     var hybridListener:HybridListener?=null
 
@@ -60,8 +60,6 @@ class HybridWebView(private val builder: HybridWebViewBuilder) : X5WebView(build
         clearAnimation()
         freeMemory()
         stopLoading()
-        webViewClient = null
-        webChromeClient = null
         // 如果先调用destroy()方法，
         //则会命中if (isDestroyed()) return;需要先onDetachedFromWindow()
         //再 destory()

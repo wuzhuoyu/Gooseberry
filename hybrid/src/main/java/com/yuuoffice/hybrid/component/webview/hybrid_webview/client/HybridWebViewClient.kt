@@ -2,17 +2,13 @@ package com.yuuoffice.hybrid.component.webview.hybrid_webview.client
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.net.http.SslError
 import android.os.Build
+import android.webkit.*
 import com.yuuoffice.hybrid.component.bridge.Bridge
 import com.yuuoffice.hybrid.component.ext.errorLog
 import com.yuuoffice.hybrid.component.ext.infoLog
 import com.yuuoffice.hybrid.component.webview.hybrid_webview.HybridWebView
-import com.tencent.smtt.export.external.interfaces.SslError
-import com.tencent.smtt.export.external.interfaces.SslErrorHandler
-import com.tencent.smtt.export.external.interfaces.WebResourceError
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
 
 
 /**
@@ -104,9 +100,9 @@ class HybridWebViewClient(private val hybridWebView: HybridWebView): WebViewClie
      * 解决部分网站证书问题
      * */
     override fun onReceivedSslError(webView: WebView?, sslErrorHandler: SslErrorHandler?, sslError: SslError?) {
-        //super.onReceivedSslError(webView, sslErrorHandler, sslError);注意一定要去除这行代码，否则设置无效。
-        // handler.cancel();// Android默认的处理方式
-        sslErrorHandler?.proceed();// 接受所有网站的证书
+        //super.onReceivedSslError(webView, sslErrorHandler, sslError)注意一定要去除这行代码，否则设置无效。
+        // handler.cancel()// Android默认的处理方式
+        sslErrorHandler?.proceed()// 接受所有网站的证书
     }
 
 

@@ -3,17 +3,12 @@ package com.yuuoffice.hybrid.component.webview.hybrid_webview.client
 import android.content.Intent
 import android.net.Uri
 import android.os.Message
+import android.webkit.*
 import com.yuuoffice.hybrid.component.ext.debugLog
 import com.yuuoffice.hybrid.component.ext.errorLog
 import com.yuuoffice.hybrid.component.ext.infoLog
 import com.yuuoffice.hybrid.component.ext.warningLog
 import com.yuuoffice.hybrid.component.webview.hybrid_webview.HybridWebView
-import com.tencent.smtt.export.external.interfaces.ConsoleMessage
-import com.tencent.smtt.export.external.interfaces.JsPromptResult
-import com.tencent.smtt.export.external.interfaces.JsResult
-import com.tencent.smtt.sdk.WebChromeClient
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
 import com.yuuoffice.hybrid.component.bridge.Bridge
 
 

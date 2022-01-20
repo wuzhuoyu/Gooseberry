@@ -8,7 +8,6 @@ import com.yuuoffice.hybrid.component.ext.infoLog
 import com.yuuoffice.hybrid.component.utils.fromJson
 import com.yuuoffice.hybrid.component.utils.toJson
 import com.yuuoffice.hybrid.component.webview.hybrid_webview.HybridWebView
-import com.yuuoffice.annotation.base.HybridBridgeControllerAnnotation
 import com.yuuoffice.annotation.base.HybridBridgeMessage
 import com.yuuoffice.annotation.base.firstCharLowerCase
 import com.yuuoffice.annotation.base.firstCharUpCase
@@ -25,9 +24,6 @@ import java.util.concurrent.ConcurrentHashMap
  */
 
 class HybridBridge : HybridBridgeApi {
-
-    private var controllerHashMap: ConcurrentHashMap<String, Any> =
-        ConcurrentHashMap<String, Any>()
 
     private var bridgeConfig: HybridBridgeConfig? = null
 
