@@ -7,7 +7,7 @@ plugins {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.github.WuZhuoYu"
+            groupId = "com.yuuoffice."
             artifactId = "library"
             version = "0.0.1"
 
@@ -67,7 +67,7 @@ android {
 }
 
 dependencies {
-    api(project(":annotation"))
+    api(project(":gooseberry-annotation"))
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     implementation("androidx.core:core-ktx:1.3.2")

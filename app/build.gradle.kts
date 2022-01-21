@@ -68,8 +68,8 @@ android {
 
 
 dependencies {
-    implementation(project(":hybrid"))
-//    implementation(project(":processor"))
+    implementation(project(":gooseberry-api"))
+    //    implementation(project(":processor"))
 //    ksp(project(":processor"))
 
     implementation ("androidx.core:core-ktx:1.3.2")
