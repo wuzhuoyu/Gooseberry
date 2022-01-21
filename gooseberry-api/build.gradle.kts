@@ -7,7 +7,7 @@ plugins {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.yuuoffice."
+            groupId = "com.yuuoffice.wuzhuoyu"
             artifactId = "library"
             version = "0.0.1"
 
