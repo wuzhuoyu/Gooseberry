@@ -3,18 +3,20 @@ plugins {
     kotlin("android")
     `maven-publish`
 }
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "com.yuuoffice.wuzhuoyu"
+                artifactId = "library"
+                version = "0.0.1"
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.yuuoffice.wuzhuoyu"
-            artifactId = "library"
-            version = "0.0.1"
-
-         //   from(components["java"])
+                //   from(components["java"])
+            }
         }
     }
 }
+
 
 android {
     compileSdk = 30
