@@ -7,9 +7,9 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("maven") {
-                groupId = "com.yuuoffice.wuzhuoyu"
-                artifactId = "library"
-                version = "0.0.1"
+                groupId = "com.github.WuZhuoYu"
+                artifactId = "Gooseberry"
+                version = "0.12.0"
 
                 //   from(components["java"])
             }
