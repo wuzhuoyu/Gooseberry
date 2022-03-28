@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yuuoffice.library.hybrid">
+    package="com.yuu.library.hybrid">
 
     <!--权限-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,8 +12,6 @@
     <application
         android:usesCleartextTraffic="true">
 
-        <activity android:name="com.yuuoffice.gooseberry.sample.LauncherActivity"/>
-        <activity android:name="com.yuuoffice.gooseberry.sample.MainHybridActivity"/>
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"

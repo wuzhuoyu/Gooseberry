@@ -11,7 +11,7 @@ android {
     compileSdk = 30
 
     defaultConfig {
-        applicationId = "com.yuuoffice.gooseberry"
+        applicationId = "com.yuu.gooseberry"
         minSdk = 21
         targetSdk = 30
         versionCode = 1
