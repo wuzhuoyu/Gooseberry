@@ -9,9 +9,10 @@ afterEvaluate {
             create<MavenPublication>("maven") {
                 groupId = "com.github.WuZhuoYu"
                 artifactId = "Gooseberry"
-                version = "0.12.0"
+                version = "0.13.0"
 
                 //   from(components["java"])
+                afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
             }
         }
     }
