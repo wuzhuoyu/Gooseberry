@@ -9,6 +9,7 @@ import com.yuu.android.component.gooseberry.bridge.Bridge
 import com.yuu.android.component.gooseberry.ext.errorLog
 import com.yuu.android.component.gooseberry.ext.infoLog
 import com.yuu.android.component.gooseberry.webview.hybrid_webview.HybridWebView
+import java.net.URLDecoder
 
 
 /**
@@ -60,29 +61,46 @@ class HybridWebViewClient(private val hybridWebView: HybridWebView): WebViewClie
             when(error.errorCode){
                 //网络连接超时
                 ERROR_TIMEOUT->{
+                    hybridWebView.hybridListener?.onNetworkError(error.errorCode,"ERROR_TIMEOUT")
                     errorLog("webview network connection timed out")
                 }
                 //断网
                 ERROR_CONNECT->{
+                    hybridWebView.hybridListener?.onNetworkError(error.errorCode,"ERROR_CONNECT")
                     errorLog("webview network disconnect")
                 }
                 //代理异常
                 ERROR_PROXY_AUTHENTICATION->{
+                    hybridWebView.hybridListener?.onNetworkError(error.errorCode,"ERROR_PROXY_AUTHENTICATION")
                     errorLog("webview proxy exception")
+                }
+                // 主机丢失
+                ERROR_HOST_LOOKUP->{
+                    hybridWebView.hybridListener?.onNetworkError(error.errorCode,"ERROR_HOST_LOOKUP")
+                    errorLog("webview host error")
                 }
                 else->{
                     errorLog("webview other error, message :${error.description}")
                 }
             }
-            hybridWebView.hybridListener?.onPageError(error.errorCode,error.description.toString(),request.url.toString())
         }
+
+        super.onReceivedError(view,request,error)
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         infoLog("shouldOverrideUrlLoading request url is $url")
 
-        if (Bridge.instance.processNativeApi(Uri.parse(url))){
-            return true
+        try {
+            // decode 之前，处理 % 和 +
+            val replacedUrl = url?.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+                ?.replace("\\+".toRegex(), "%2B")
+            val uri = Uri.parse(URLDecoder.decode(replacedUrl, "utf-8"))
+            if (Bridge.instance.processNativeApi(uri)) {
+                return true
+            }
+        } catch (e: Exception) {
+            errorLog("解析url报错$e")
         }
         return super.shouldOverrideUrlLoading(view, url)
     }
@@ -90,9 +108,18 @@ class HybridWebViewClient(private val hybridWebView: HybridWebView): WebViewClie
 
     override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
         infoLog("shouldOverrideUrlLoading request url is ${request.url}")
-        if (Bridge.instance.processNativeApi(request.url)){
-            return true
+        try {
+            // decode 之前，处理 % 和 +
+            val replacedUrl = request.url.toString().replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+                .replace("\\+".toRegex(), "%2B")
+            val uri = Uri.parse(URLDecoder.decode(replacedUrl,"utf-8"))
+            if (Bridge.instance.processNativeApi(uri)){
+                return true
+            }
+        }catch (e: Exception) {
+            errorLog("解析url报错$e")
         }
+
         return super.shouldOverrideUrlLoading(view,request)
     }
 

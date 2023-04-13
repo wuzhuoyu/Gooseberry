@@ -10,6 +10,7 @@ import com.yuu.android.component.gooseberry.bridge.hb.HybridBridgeResponse
 import com.yuu.android.component.gooseberry.config.HybridBridgeConfig
 import com.yuu.android.component.gooseberry.exception.BridgeException
 import com.yuu.android.component.gooseberry.exception.RSAException
+import com.yuu.android.component.gooseberry.ext.errorLog
 import com.yuu.android.component.gooseberry.ext.toBase64
 import com.yuu.android.component.gooseberry.logger.DefaultLogger
 import com.yuu.android.component.gooseberry.logger.ILogger
@@ -66,10 +67,11 @@ open class Bridge : BridgeApi, RSAApi {
     }
 
     override fun processNativeApi(uri: Uri): Boolean {
-        if (hasInit) {
-            return hybridBridge.handlerNativeApi(uri)
+        return if (hasInit) {
+            hybridBridge.handlerNativeApi(uri)
         } else {
-            throw BridgeException(msg = "hybrid bridge not initialized yet")
+            logger.error(TAG,"hybrid bridge not initialized yet")
+            false
         }
     }
 
@@ -77,7 +79,7 @@ open class Bridge : BridgeApi, RSAApi {
         if (hasInit&&hybridWebView!=null) {
             return hybridBridge.handlerJavascriptApi(hybridWebView!!, response,isOpenEncryption)
         } else {
-            throw BridgeException(msg = "hybrid bridge not initialized yet")
+            logger.error(TAG,"hybrid bridge not initialized yet")
         }
     }
 

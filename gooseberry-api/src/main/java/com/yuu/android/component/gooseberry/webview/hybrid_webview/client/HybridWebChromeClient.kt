@@ -10,6 +10,7 @@ import com.yuu.android.component.gooseberry.ext.infoLog
 import com.yuu.android.component.gooseberry.ext.warningLog
 import com.yuu.android.component.gooseberry.webview.hybrid_webview.HybridWebView
 import com.yuu.android.component.gooseberry.bridge.Bridge
+import java.net.URLDecoder
 
 
 /**
@@ -90,9 +91,19 @@ class HybridWebChromeClient(private val hybridWebView: HybridWebView) : WebChrom
     ): Boolean {
         infoLog("onJsAlert url:$url message $message ")
         result?.cancel()
-        if (Bridge.instance.processNativeApi(Uri.parse(message))){
-            return true
+
+        try {
+            // decode 之前，处理 % 和 +
+            val replacedUrl = message?.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+                ?.replace("\\+".toRegex(), "%2B")
+            val uri = Uri.parse(URLDecoder.decode(replacedUrl,"utf-8"))
+            if (Bridge.instance.processNativeApi(uri)){
+                return true
+            }
+        }catch (e: Exception) {
+            errorLog("解析uri报错:$e")
         }
+
         return super.onJsAlert(view,url,message,result)
     }
 
@@ -106,9 +117,19 @@ class HybridWebChromeClient(private val hybridWebView: HybridWebView) : WebChrom
     ): Boolean {
         infoLog("onJsConfirm url:$url message$message ")
         result?.confirm()
-        if (Bridge.instance.processNativeApi(Uri.parse(message))){
-            return true
+
+        try {
+            // decode 之前，处理 % 和 +
+            val replacedUrl = message?.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+                ?.replace("\\+".toRegex(), "%2B")
+            val uri = Uri.parse(URLDecoder.decode(replacedUrl,"utf-8"))
+            if (Bridge.instance.processNativeApi(uri)){
+                return true
+            }
+        }catch (e: Exception) {
+            errorLog("解析uri报错:$e")
         }
+
         return super.onJsConfirm(view,url,message,result)
     }
 
@@ -121,9 +142,19 @@ class HybridWebChromeClient(private val hybridWebView: HybridWebView) : WebChrom
     ): Boolean {
         infoLog("onJsPrompt url:$url message$message ")
         result?.confirm()
-        if (Bridge.instance.processNativeApi(Uri.parse(message))){
-            return true
+
+        try {
+            // decode 之前，处理 % 和 +
+            val replacedUrl = message?.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+                ?.replace("\\+".toRegex(), "%2B")
+            val uri = Uri.parse(URLDecoder.decode(replacedUrl,"utf-8"))
+            if (Bridge.instance.processNativeApi(uri)){
+                return true
+            }
+        }catch (e: Exception) {
+            errorLog("解析uri报错:$e")
         }
+
         return super.onJsPrompt(view,url,message,defaultValue,result)
     }
 }

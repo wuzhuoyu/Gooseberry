@@ -6,13 +6,11 @@ plugins {
 afterEvaluate {
     publishing {
         publications {
-            create<MavenPublication>("maven") {
-                groupId = "com.github.WuZhuoYu"
+            create<MavenPublication>("release") {
+                groupId = "com.yuu.android.component"
                 artifactId = "Gooseberry"
-                version = "0.13.0"
-
-                //   from(components["java"])
-                afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
+                version = "0.0.1"
+                from(components["release"])
             }
         }
     }
@@ -28,14 +26,6 @@ android {
         targetSdk = 30
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
-
-
-        ndk {
-            //选择要添加的对应cpu类型的.so库。
-            abiFilters.add("armeabi")
-            abiFilters.add("armeabi-v7a")
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64', 'arm64-v8a'
-        }
 
     }
 
@@ -80,9 +70,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
-    //moshi
-    implementation("com.google.code.gson:gson:2.8.6")
-
-    implementation("io.github.jeremyliao:live-event-bus-x:1.8.0")
-    implementation(kotlin("reflect"))
+    //gson
+    api("com.google.code.gson:gson:2.8.6")
 }

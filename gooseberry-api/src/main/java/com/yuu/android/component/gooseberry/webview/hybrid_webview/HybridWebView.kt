@@ -1,7 +1,6 @@
 package com.yuu.android.component.gooseberry.webview.hybrid_webview
 
 import android.content.Context
-import com.jeremyliao.liveeventbus.BuildConfig
 import com.yuu.android.component.gooseberry.api.HybridWebViewApi
 import com.yuu.android.component.gooseberry.bridge.Bridge
 import com.yuu.android.component.gooseberry.webview.base_webview.BaseWebView
@@ -28,7 +27,7 @@ class HybridWebView(private val builder: HybridWebViewBuilder) : BaseWebView(bui
         setWebViewFontSize(builder.fontSize?:16)
         setWebViewDisplayCutoutEnable(builder.isDisplayCutoutEnable?:true)
         setWebViewDayOrNightModel(builder.isDayOrNight?:true)
-        setWebViewDebugEnable(builder.isDebugEnable?: BuildConfig.DEBUG)
+        setWebViewDebugEnable(builder.isDebugEnable?: false)
         setWebViewJavascriptEnable(true)
         isVerticalFadingEdgeEnabled = false
         isHorizontalFadingEdgeEnabled = false

@@ -43,22 +43,21 @@ class HybridBridge : HybridBridgeApi {
 
         if (scheme != bridgeConfig?.scheme || host != bridgeConfig?.host) return false
 
+        val param = uri.getQueryParameter(bridgeConfig?.param)
+
         val hybridBridgeMessage: HybridBridgeMessage =
-            uri.getHybridParam()?.fromJson<HybridBridgeMessage>()?: return false
+            param?.fromJson<HybridBridgeMessage>() ?: return false
 
-        hybridBridgeMessage.data?.let {
-            hybridBridgeMessage.data = URLDecoder.decode(it,"utf-8")
-        }
-
-        val apiCollection: Array<String> = hybridBridgeMessage.nativeApi.accordingToTargetChar('/')
-        if (apiCollection.isNullOrEmpty()) return false
+        // 此处代码设计没得办法
+        val apiCollection: List<String> = hybridBridgeMessage.nativeApi.accordingToTargetChar('/')
+        if (apiCollection.isEmpty() || apiCollection.size < 2) return false
 
         val apiControllerName = apiCollection[0].firstCharLowerCase()
         val apiMethodName = apiCollection[1]
 
         try {
             val helperClass = Class.forName("gooseberry.${apiControllerName.firstCharUpCase()}_Helper")
-            val function = helperClass.getMethod(apiMethodName.removePrefix("/"),HybridBridgeMessage::class.java)
+            val function = helperClass.getMethod(apiMethodName,HybridBridgeMessage::class.java)
             function.invoke(helperClass.kotlin.objectInstance,hybridBridgeMessage)
         }catch (e:Exception){
             errorLog(e.toString())

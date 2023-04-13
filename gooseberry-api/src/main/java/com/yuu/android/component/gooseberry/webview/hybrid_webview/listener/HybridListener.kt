@@ -37,4 +37,11 @@ interface HybridListener {
      * */
     fun onReceiveTitle(title: String)
 
+    /**
+     * 网络错误
+     * */
+    fun onNetworkError(errorCode: Int,errorMsg:String)
+
+
+
 }
