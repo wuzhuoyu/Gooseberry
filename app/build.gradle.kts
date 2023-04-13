@@ -69,8 +69,8 @@ android {
 
 dependencies {
     implementation(project(":gooseberry-api"))
-    implementation(project(":gooseberry-complier"))
-    ksp(project(":gooseberry-complier"))
+    implementation(project(":gooseberry-compiler"))
+//    ksp(project(":gooseberry-compiler"))
 
     implementation ("androidx.core:core-ktx:1.3.2")
     implementation ("androidx.appcompat:appcompat:1.2.0")
