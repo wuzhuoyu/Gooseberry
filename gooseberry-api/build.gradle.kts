@@ -6,7 +6,7 @@ plugins {
 afterEvaluate {
     publishing {
         publications {
-            create<MavenPublication>("release") {
+            create<MavenPublication>("gooseberry-api") {
                 groupId = "com.yuu.android.component"
                 artifactId = "gooseberry-api"
                 version = "0.0.1"

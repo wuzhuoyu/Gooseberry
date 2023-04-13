@@ -16,7 +16,7 @@ sourceSets.main {
 afterEvaluate {
     publishing {
         publications {
-            create<MavenPublication>("release") {
+            create<MavenPublication>("gooseberry-annotation") {
                 groupId = "com.yuu.android.component"
                 artifactId = "gooseberry-annotation"
                 version = "0.0.1"
