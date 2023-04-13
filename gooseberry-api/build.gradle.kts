@@ -8,7 +8,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 groupId = "com.yuu.android.component"
-                artifactId = "Gooseberry"
+                artifactId = "gooseberry-api"
                 version = "0.0.1"
                 from(components["release"])
             }

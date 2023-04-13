@@ -1,6 +1,7 @@
 
 plugins {
     kotlin("jvm")
+    `maven-publish`
 }
 
 dependencies {
@@ -9,4 +10,18 @@ dependencies {
 
 sourceSets.main {
     java.srcDirs("src/main/kotlin")
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.yuu.android.component"
+                artifactId = "gooseberry-annotation"
+                version = "0.0.1"
+                from(components["java"])
+            }
+        }
+    }
 }
