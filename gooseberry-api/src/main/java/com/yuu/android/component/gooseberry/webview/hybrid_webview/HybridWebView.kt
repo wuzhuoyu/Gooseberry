@@ -37,6 +37,8 @@ class HybridWebView(private val builder: HybridWebViewBuilder) : BaseWebView(bui
             domStorageEnabled = true
             databaseEnabled = true
             //支持通过JS打开新窗口
+            allowFileAccessFromFileURLs = true
+            allowUniversalAccessFromFileURLs =true
             javaScriptCanOpenWindowsAutomatically = true
         }
         webViewClient = HybridWebViewClient(this)
