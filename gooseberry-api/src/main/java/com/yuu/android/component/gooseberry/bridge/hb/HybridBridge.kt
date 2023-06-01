@@ -43,10 +43,17 @@ class HybridBridge : HybridBridgeApi {
 
         if (scheme != bridgeConfig?.scheme || host != bridgeConfig?.host) return false
 
-        val param = uri.getQueryParameter(bridgeConfig?.param)
+        //解决param带url特殊字符情况
+        val temp = uri.toString()
+        val result = temp
+            .replace("#","%23")
+            .replace("=","3D")
+            .replace("&","26")
+
+        val param = Uri.parse(result).getQueryParameter(bridgeConfig?.param)
 
         val hybridBridgeMessage: HybridBridgeMessage =
-            param?.fromJson<HybridBridgeMessage>() ?: return false
+            URLDecoder.decode(param,"utf-8")?.fromJson<HybridBridgeMessage>() ?: return false
 
         // 此处代码设计没得办法
         val apiCollection: List<String> = hybridBridgeMessage.nativeApi.accordingToTargetChar('/')
