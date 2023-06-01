@@ -47,8 +47,6 @@ class HybridBridge : HybridBridgeApi {
         val temp = uri.toString()
         val result = temp
             .replace("#","%23")
-            .replace("=","%3D")
-            .replace("&","%26")
 
         val param = Uri.parse(result).getQueryParameter(bridgeConfig?.param)
 
