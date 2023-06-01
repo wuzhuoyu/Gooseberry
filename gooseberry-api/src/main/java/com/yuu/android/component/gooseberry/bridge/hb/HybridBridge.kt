@@ -35,7 +35,7 @@ class HybridBridge : HybridBridgeApi {
     }
 
     override fun handlerNativeApi(uri: Uri): Boolean {
-        //yuuoffice://host?param={"nativeApi":"TestController/ControllerA","javascriptApi":"TestJSController/ControllerJSA","data":"dada"}
+        //yuuoffice://host?param={"nativeApi":"TestController/ControllerA","javascriptApi":"TestJSController/ControllerJSA","data":"da#da"}
         infoLog("hybrid bridge communication message is $uri")
 
         val scheme = uri.scheme
@@ -47,8 +47,8 @@ class HybridBridge : HybridBridgeApi {
         val temp = uri.toString()
         val result = temp
             .replace("#","%23")
-            .replace("=","3D")
-            .replace("&","26")
+            .replace("=","%3D")
+            .replace("&","%26")
 
         val param = Uri.parse(result).getQueryParameter(bridgeConfig?.param)
 
