@@ -52,8 +52,7 @@ class HybridBridge : HybridBridgeApi {
 
         val param = Uri.parse(result).getQueryParameter(bridgeConfig?.param)
 
-        val hybridBridgeMessage: HybridBridgeMessage =
-            URLDecoder.decode(param,"utf-8")?.fromJson<HybridBridgeMessage>() ?: return false
+        val hybridBridgeMessage: HybridBridgeMessage =param?.fromJson<HybridBridgeMessage>() ?: return false
 
         // 此处代码设计没得办法
         val apiCollection: List<String> = hybridBridgeMessage.nativeApi.accordingToTargetChar('/')
