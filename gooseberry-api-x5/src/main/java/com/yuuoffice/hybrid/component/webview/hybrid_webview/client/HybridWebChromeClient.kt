@@ -15,6 +15,7 @@ import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import com.yuuoffice.hybrid.component.bridge.Bridge
+import java.net.URLDecoder
 
 
 /**
@@ -95,9 +96,24 @@ class HybridWebChromeClient(private val hybridWebView: HybridWebView) : WebChrom
     ): Boolean {
         infoLog("onJsAlert url:$url message $message ")
         result?.cancel()
-        if (Bridge.instance.processNativeApi(Uri.parse(message))){
-            return true
+
+        try {
+            // url参数中有+、空格、=、%、&、#等特殊符号的问题解决
+            val replacedUrl = message
+                ?.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+                ?.replace("&","%26")
+                ?.replace("=","%3D")
+                ?.replace("?","%3F")
+                ?.replace("\\+".toRegex(), "%2B")
+                ?.replace("#","%23")
+            val uri = Uri.parse(URLDecoder.decode(replacedUrl,"utf-8"))
+            if (Bridge.instance.processNativeApi(uri)){
+                return true
+            }
+        }catch (e: Exception) {
+            errorLog("解析uri报错:$e")
         }
+
         return super.onJsAlert(view,url,message,result)
     }
 

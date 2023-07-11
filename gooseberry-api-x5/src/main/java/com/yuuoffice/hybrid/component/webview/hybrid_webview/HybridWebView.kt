@@ -38,6 +38,8 @@ class HybridWebView(private val builder: HybridWebViewBuilder) : X5WebView(build
             domStorageEnabled = true
             databaseEnabled = true
             //支持通过JS打开新窗口
+            setAllowFileAccessFromFileURLs(true)
+            setAllowUniversalAccessFromFileURLs(true)
             javaScriptCanOpenWindowsAutomatically = true
         }
         webViewClient = HybridWebViewClient(this)

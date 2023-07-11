@@ -17,6 +17,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Gooseberry"
 include (":app")
-include (":hybrid")
-include (":processor")
-include (":annotation")
+include (":gooseberry-api-x5")
+include (":gooseberry-compiler-x5")
+include (":gooseberry-annotation-x5")

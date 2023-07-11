@@ -68,9 +68,9 @@ android {
 
 
 dependencies {
-    implementation(project(":hybrid"))
-    implementation(project(":processor"))
-    ksp(project(":processor"))
+    implementation(project(":gooseberry-api-x5"))
+    implementation(project(":gooseberry-compiler-x5"))
+    "ksp"(project(":gooseberry-compiler-x5"))
 
     implementation ("androidx.core:core-ktx:1.3.2")
     implementation ("androidx.appcompat:appcompat:1.2.0")

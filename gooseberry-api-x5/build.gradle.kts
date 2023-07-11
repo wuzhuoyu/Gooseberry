@@ -3,18 +3,19 @@ plugins {
     kotlin("android")
     `maven-publish`
 }
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.WuZhuoYu"
-            artifactId = "library"
-            version = "0.0.1"
-
-         //   from(components["java"])
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("gooseberry-api-x5") {
+                groupId = "com.yuu.android.component"
+                artifactId = "gooseberry-api-x5"
+                version = "0.0.1"
+                from(components["release"])
+            }
         }
     }
 }
+
 
 android {
     compileSdk = 30
@@ -25,14 +26,6 @@ android {
         targetSdk = 30
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
-
-
-        ndk {
-            //选择要添加的对应cpu类型的.so库。
-            abiFilters.add("armeabi")
-            abiFilters.add("armeabi-v7a")
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64', 'arm64-v8a'
-        }
 
     }
 
@@ -67,7 +60,7 @@ android {
 }
 
 dependencies {
-    api(project(":annotation"))
+    api(project(":gooseberry-annotation-x5"))
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     implementation("androidx.core:core-ktx:1.3.2")
@@ -80,7 +73,7 @@ dependencies {
     //腾讯x5引擎lib
     api(files("libs\\tbs_sdk_thirdapp_v4.3.0.185_44085_sharewithdownloadwithfile_withoutGame_obfs_20210809_201442.jar"))
 
-    //moshi
+    //gson
     implementation("com.google.code.gson:gson:2.8.6")
 
     implementation("io.github.jeremyliao:live-event-bus-x:1.8.0")

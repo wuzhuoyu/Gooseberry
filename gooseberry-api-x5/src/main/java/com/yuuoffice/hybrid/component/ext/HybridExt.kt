@@ -16,9 +16,9 @@ import com.yuuoffice.hybrid.component.bridge.Bridge
 /**
  * 没有目标目标字符char 返回空集合
  * */
-fun String.accordingToTargetChar(targetChar: Char): Array<String> {
+fun String.accordingToTargetChar(targetChar: Char): List<String> {
     val firstIndex = indexOfFirst { it == targetChar }
-    return if (firstIndex != -1) arrayOf(substring(0,firstIndex),substring(firstIndex,length)) else arrayOf()
+    return if (firstIndex != -1) this.split("/").filter { it.isNotEmpty() } else mutableListOf()
 }
 
 /**
