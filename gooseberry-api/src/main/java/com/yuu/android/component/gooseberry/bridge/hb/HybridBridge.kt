@@ -1,6 +1,8 @@
 package com.yuu.android.component.gooseberry.bridge.hb
 
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import com.yuu.android.component.gooseberry.config.HybridBridgeConfig
 import com.yuu.android.component.gooseberry.ext.errorLog
 import com.yuu.android.component.gooseberry.ext.getHybridParam
@@ -26,6 +28,7 @@ class HybridBridge : HybridBridgeApi {
 
     private var bridgeConfig: HybridBridgeConfig? = null
 
+    private  val uiHandler = Handler(Looper.getMainLooper())
     @Synchronized
     override fun init(
         bridgeConfig: HybridBridgeConfig
@@ -90,7 +93,9 @@ class HybridBridge : HybridBridgeApi {
             "HybridBridge.receiveMessage",
             messageStr
         )
-        hybridWebView.evaluateJavascript(javascriptModel) {}
+        uiHandler.post {
+            hybridWebView.evaluateJavascript(javascriptModel) {}
+        }
     }
 
     companion object {
