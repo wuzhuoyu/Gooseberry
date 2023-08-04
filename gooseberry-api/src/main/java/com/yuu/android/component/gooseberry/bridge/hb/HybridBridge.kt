@@ -1,6 +1,8 @@
 package com.yuu.android.component.gooseberry.bridge.hb
 
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import com.yuu.android.component.gooseberry.config.HybridBridgeConfig
 import com.yuu.android.component.gooseberry.ext.errorLog
 import com.yuu.android.component.gooseberry.ext.getHybridParam
@@ -26,6 +28,7 @@ class HybridBridge : HybridBridgeApi {
 
     private var bridgeConfig: HybridBridgeConfig? = null
 
+    private  val uiHandler = Handler(Looper.getMainLooper())
     @Synchronized
     override fun init(
         bridgeConfig: HybridBridgeConfig
@@ -35,7 +38,7 @@ class HybridBridge : HybridBridgeApi {
     }
 
     override fun handlerNativeApi(uri: Uri): Boolean {
-        //yuuoffice://host?param={"nativeApi":"TestController/ControllerA","javascriptApi":"TestJSController/ControllerJSA","data":"dada"}
+        //yuuoffice://host?param={"nativeApi":"TestController/ControllerA","javascriptApi":"TestJSController/ControllerJSA","data":"da#da"}
         infoLog("hybrid bridge communication message is $uri")
 
         val scheme = uri.scheme
@@ -47,13 +50,12 @@ class HybridBridge : HybridBridgeApi {
         val temp = uri.toString()
         val result = temp
             .replace("#","%23")
-            .replace("=","3D")
-            .replace("&","26")
+            .replace("&","%26")
+            .replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
 
         val param = Uri.parse(result).getQueryParameter(bridgeConfig?.param)
 
-        val hybridBridgeMessage: HybridBridgeMessage =
-            URLDecoder.decode(param,"utf-8")?.fromJson<HybridBridgeMessage>() ?: return false
+        val hybridBridgeMessage: HybridBridgeMessage =param?.fromJson<HybridBridgeMessage>() ?: return false
 
         // 此处代码设计没得办法
         val apiCollection: List<String> = hybridBridgeMessage.nativeApi.accordingToTargetChar('/')
@@ -91,7 +93,9 @@ class HybridBridge : HybridBridgeApi {
             "HybridBridge.receiveMessage",
             messageStr
         )
-        hybridWebView.evaluateJavascript(javascriptModel) {}
+        uiHandler.post {
+            hybridWebView.evaluateJavascript(javascriptModel) {}
+        }
     }
 
     companion object {
