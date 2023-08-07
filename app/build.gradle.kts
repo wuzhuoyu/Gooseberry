@@ -8,12 +8,12 @@ plugins {
 val composeVersion = "1.0.1"
 
 android {
-    compileSdk = 30
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.yuu.gooseberry"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 33
         versionCode = 1
         versionName = "V0.0.1"
         flavorDimensions("default")
