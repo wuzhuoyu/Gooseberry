@@ -15,6 +15,7 @@ import com.yuu.android.component.gooseberry.ext.toBase64
 import com.yuu.android.component.gooseberry.logger.DefaultLogger
 import com.yuu.android.component.gooseberry.logger.ILogger
 import com.yuu.android.component.gooseberry.rsa.RSA
+import com.yuu.android.component.gooseberry.utils.toJson
 import com.yuu.android.component.gooseberry.webview.hybrid_webview.HybridWebView
 import java.security.KeyPair
 
@@ -33,6 +34,8 @@ open class Bridge : BridgeApi, RSAApi {
     private var isOpenEncryption:Boolean = false
 
     private val hybridBridge: HybridBridge by lazy { HybridBridge() }
+
+    private var upLoadLogListener: ((String) -> Unit)?=null
 
     /**密钥*/
     private lateinit var keyPair: KeyPair
@@ -61,6 +64,11 @@ open class Bridge : BridgeApi, RSAApi {
         return this
     }
 
+    override fun addUploadLogListener(upLoadLogListener: ((String) -> Unit)?): Bridge {
+        this.upLoadLogListener = upLoadLogListener
+        return  this
+    }
+
     override fun openEncryption(isOpenEncryption: Boolean):Bridge {
         this.isOpenEncryption = isOpenEncryption
         return this
@@ -68,6 +76,7 @@ open class Bridge : BridgeApi, RSAApi {
 
     override fun processNativeApi(uri: Uri): Boolean {
         return if (hasInit) {
+            upLoadLogListener?.invoke(uri.toString())
             hybridBridge.handlerNativeApi(uri)
         } else {
             logger.error(TAG,"hybrid bridge not initialized yet")
@@ -77,6 +86,7 @@ open class Bridge : BridgeApi, RSAApi {
 
     override fun <T> processJavascriptApi(response: HybridBridgeResponse<T>) {
         if (hasInit&&hybridWebView!=null) {
+            upLoadLogListener?.invoke(response.toJson<HybridBridgeResponse<T>>()?: "")
             return hybridBridge.handlerJavascriptApi(hybridWebView!!, response,isOpenEncryption)
         } else {
             logger.error(TAG,"hybrid bridge not initialized yet")

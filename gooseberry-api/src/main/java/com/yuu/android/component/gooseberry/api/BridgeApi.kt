@@ -24,6 +24,8 @@ interface BridgeApi {
 
     fun openLog(isOpenLog:Boolean):Bridge
 
+    fun addUploadLogListener(upLoadLogListener:((String)->Unit)?) : Bridge
+
     fun openEncryption(isOpenEncryption: Boolean): Bridge
 
     fun bindHybridWebView(hybridWebView: HybridWebView)
