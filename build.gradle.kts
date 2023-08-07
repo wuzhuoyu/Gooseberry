@@ -1,10 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    kotlin("jvm") version "1.7.20" apply false
+    kotlin("jvm") version "1.5.21" apply false
 }
-val ktVersion by extra { "1.7.0" }
-val appcompatVersion by extra { "1.5.1" }
+
 buildscript {
 
     repositories {

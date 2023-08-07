@@ -2,18 +2,18 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id ("com.google.devtools.ksp") version ("1.7.20-1.0.8")
+    id ("com.google.devtools.ksp") version ("1.5.21-1.0.0-beta07")
 }
 
 val composeVersion = "1.0.1"
 
 android {
-    compileSdk = 33
+    compileSdk = 30
 
     defaultConfig {
         applicationId = "com.yuu.gooseberry"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 30
         versionCode = 1
         versionName = "V0.0.1"
         flavorDimensions("default")
