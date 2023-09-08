@@ -56,6 +56,8 @@ class HybridWebView(private val builder: HybridWebViewBuilder) : BaseWebView(bui
         loadUrl("about:blank")
         clearFormData()
         clearMatches()
+        loadDataWithBaseURL(null,"","index/html","utf-8",null)
+        clearWebViewCache()
         clearSslPreferences()
         clearDisappearingChildren()
         clearAnimation()
