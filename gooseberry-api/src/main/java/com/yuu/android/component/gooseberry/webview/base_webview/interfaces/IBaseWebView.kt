@@ -67,6 +67,12 @@ interface IBaseWebView {
     fun loadLocalUrl(url: String)
 
     /**
+     * 设置本地html文件为加载url，其他缓存目录下的离线资源
+     * @exception   默认不能为空
+     * @param url   加载的路径,不包含 "/cache/webSource/index.html"
+     * */
+    fun loadLocalCacheUrl(url: String)
+    /**
      * 设置远端html文件为加载url
      * @exception hostUrl不可以为空
      * @param hostUrl 主域名

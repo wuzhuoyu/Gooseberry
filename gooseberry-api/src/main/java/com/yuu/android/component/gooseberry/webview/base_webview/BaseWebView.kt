@@ -84,6 +84,11 @@ abstract class BaseWebView(context: Context): WebView(context) , IBaseWebView {
         super.loadUrl("file:///android_asset/$url")
     }
 
+    override fun loadLocalCacheUrl(url: String) {
+        if (url.isBlank()) throw WebViewException("webview the loaded local url is empty")
+        super.loadUrl(url)
+    }
+
     override fun loadRemoteUrl(hostUrl: String, router: String) {
         if (hostUrl.isBlank()) throw WebViewException("webview the loaded host url is empty")
         super.loadUrl(hostUrl+router)
