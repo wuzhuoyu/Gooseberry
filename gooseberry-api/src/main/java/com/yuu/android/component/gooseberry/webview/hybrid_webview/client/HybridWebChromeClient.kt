@@ -96,11 +96,7 @@ class HybridWebChromeClient(private val hybridWebView: HybridWebView) : WebChrom
             // url参数中有+、空格、=、%、&、#等特殊符号的问题解决
             val replacedUrl = message
                 ?.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
-                ?.replace("&","%26")
-                ?.replace("=","%3D")
-                ?.replace("?","%3F")
                 ?.replace("\\+".toRegex(), "%2B")
-                ?.replace("#","%23")
             val uri = Uri.parse(URLDecoder.decode(replacedUrl,"utf-8"))
             if (Bridge.instance.processNativeApi(uri)){
                 return true

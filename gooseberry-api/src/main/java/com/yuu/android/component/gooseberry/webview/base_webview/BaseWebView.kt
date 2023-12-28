@@ -124,7 +124,7 @@ abstract class BaseWebView(context: Context): WebView(context) , IBaseWebView {
         stopLoading()
         removeAllViewsInLayout()
         removeAllViews()
-        super.destroy()
+//        super.destroy()
         debugLog("destroy")
     }
 }
